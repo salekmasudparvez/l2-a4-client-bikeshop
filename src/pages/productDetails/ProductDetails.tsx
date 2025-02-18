@@ -15,7 +15,7 @@ export function ProductDetails() {
    const user = useAppSelector((state) => state.auth.user);
   const [quantity, setQuantity] = useState(1);
   const navigate = useNavigate()
-  const stripePromise = loadStripe("pk_test_51QrhmoQIO6UUbte6TT60QTCzKDOiVs8i8PruR0QBEaGrppKDCBKIiIQPpN62wiYUJD5RNTDrfOVOTGWBXrrd7AVg00rjEtpvA7");
+  const stripePromise = loadStripe(import.meta.env.Vite_Sripe_Secret);
 
   const { data: singleProduct, isLoading } = useGetSingleProductQuery({ id: productIdDb?.id });
   const handleBooking = () => {
@@ -61,16 +61,22 @@ export function ProductDetails() {
               <p className="text-gray-400"><strong className="font-semibold">Description:</strong> {singleProduct?.data?.description}</p>
               <p className="text-gray-400"><strong className="font-semibold">Price:</strong> <span className="text-red-400">${singleProduct?.data?.price}</span></p>
               <p className="text-gray-400">
-                <strong className="font-semibold">Availability:</strong>{" "}
+                <strong className="font-semibold">Availability:</strong>
                 <span className={`${singleProduct?.data?.isAvailable ? "text-green-600" : "text-red-600"}`}>
                   {singleProduct?.data?.isAvailable ? "Available" : "Out of Stock"}
+                </span>
+              </p>
+              <p className="text-gray-400">
+                <strong className="font-semibold">Quantity:</strong>
+                <span className={`${singleProduct?.data?.quantity>0 ? "text-blue-600" : "text-red-600"}`}>
+                  {singleProduct?.data?.quantity>0?singleProduct?.data?.quantity:0}
                 </span>
               </p>
 
             </div>
             <div className="flex justify-items-start items-center gap-3">
               {user && user !== null?(<><div className="flex justify-center items-center gap-0">
-                <button onClick={() => setQuantity(quantity + 1)} className="btn shadow-none border-none btn-sm btn-square rounded-none bg-[#8f8f8f]">+</button>
+                <button disabled={quantity>=singleProduct?.data?.quantity} onClick={() => setQuantity(quantity + 1)} className="btn shadow-none border-none btn-sm btn-square rounded-none bg-[#8f8f8f]">+</button>
                 <span className="btn btn-sm shadow-none border-none rounded-none bg-white text-black">{quantity}</span><button onClick={() => {
                   quantity <= 1 ?
                     setQuantity(1) :
@@ -78,8 +84,8 @@ export function ProductDetails() {
                 }} className="btn shadow-none border-none btn-sm btn-square rounded-none bg-[#8f8f8f]">-</button>
               </div>
               <div className="py-3">
-                <Button type="primary" onClick={() => handleBooking()} disabled={!singleProduct?.data?.isAvailable}>Buy now</Button>
-              </div></>):(<><Button type="primary" onClick={() => navigate('/login')} >Please Login </Button></>)}
+                <Button type="primary" onClick={() => handleBooking()} disabled={!singleProduct?.data?.isAvailable ||singleProduct?.data?.quantity<1}>Buy now</Button>
+              </div></>):singleProduct?.data?.quantity<1?(<Button type="primary" disabled>Out of Stock</Button>):(<><Button type="primary" onClick={() => navigate('/login')} >Please Login </Button></>)}
             </div>
           </div>
         </div>

@@ -45,6 +45,9 @@ const AddProduct = () => {
     if (!values?.model) {
       return toast.error("Please provide a model");
     }
+    if (!values?.quantity) {
+      return toast.error("Please provide a quantity");
+    }
 
     const productDoc = {
       productName: values.productName,
@@ -53,6 +56,7 @@ const AddProduct = () => {
       brand: values.brand,
       price: values.price,
       description: values.description,
+      quantity: values?.quantity
     };
 
     const formData = new FormData();
@@ -118,6 +122,14 @@ const AddProduct = () => {
             >
               <InputNumber style={{ width: "100%" }} placeholder="price" />
             </Form.Item>
+            <Form.Item
+              rules={[{ required: true, message: "Must be provide price" }]}
+              className="w-full"
+              name="quantity"
+              label="Quantity"
+            >
+              <InputNumber style={{ width: "100%" }} placeholder="Quantity" />
+            </Form.Item>
             <Form.Item className="w-full" label="Upload photo" name="photoURL">
               <PhotoUpload fileList={fileList} setFileList={setFileList} />
             </Form.Item>
@@ -125,7 +137,7 @@ const AddProduct = () => {
               rules={[
                 { required: true, message: "Must be provide description" },
               ]}
-              className="w-full md:col-span-2"
+              className="w-full"
               name="description"
               label="Product desscription"
             >

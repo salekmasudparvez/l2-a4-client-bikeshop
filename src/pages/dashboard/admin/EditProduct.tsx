@@ -18,7 +18,7 @@ const EditProduct = () => {
   const params = useParams();
   const { data: product, isLoading } = useGetSingleProductQuery({ id: params.id });
 
-
+  console.log(product)
   useEffect(() => {
     if (product) {
       form.setFieldsValue({
@@ -27,6 +27,7 @@ const EditProduct = () => {
         category: product?.data?.category || "",
         brand: product?.data?.brand || "",
         price: product?.data?.price || 0,
+        quantity: product?.data?.quantity||0,
         description: product?.data?.description || "",
       });
     }
@@ -53,6 +54,7 @@ const EditProduct = () => {
       category: values.category,
       brand: values.brand,
       price: values.price,
+      quantity: values.quantity,
       description: values.description,
       productId:product?.productId,
       photoURL:product?.photoURL,
@@ -126,6 +128,13 @@ const EditProduct = () => {
               >
                 <InputNumber style={{ width: "100%" }} placeholder="Price" />
               </Form.Item>
+              <Form.Item
+                className="w-full"
+                name="quantity"
+                label="Quantity"
+              >
+                <InputNumber style={{ width: "100%" }} placeholder="Quantity" />
+              </Form.Item>
               <Form.Item className="w-full " label="Upload photo" >
                 <div className="flex"><PhotoUpload fileList={fileList} setFileList={setFileList} />
                {fileList.length===0 && <Avatar size="large" src={product?.data?.photoURL}></Avatar>}
@@ -133,7 +142,7 @@ const EditProduct = () => {
               </Form.Item>
               <Form.Item
                 rules={[{ required: true, message: "Must provide description" }]}
-                className="w-full md:col-span-2 "
+                className="w-full "
                 name="description"
                 label="Product Description"
               >
