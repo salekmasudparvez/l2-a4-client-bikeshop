@@ -9,7 +9,7 @@ export interface TProduct {
   brand: string;
   price: number;
   description: string;
-  available: boolean;
+  isAvailable: boolean;
   photoURL: string;
 }
 export interface TSearch {
@@ -46,6 +46,7 @@ const productsSlice = createSlice({
   reducers: {},
  
 });
+
 
 export const {
   

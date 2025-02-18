@@ -51,14 +51,14 @@ const Footer = () => {
           {/* Footer Links */}
          <div className="md:w-1/3 flex justify-center">
          <div className="flex   md:flex-col space-x-6 text-sm text-gray-400">
-            <a href="#" className="hover:text-yellow-400 transition-colors duration-300">
+            <a href="/" className="hover:text-yellow-400 transition-colors duration-300">
               Home
             </a>
-            <a href="#" className="hover:text-yellow-400 transition-colors duration-300">
+            <a href="/about-us" className="hover:text-yellow-400 transition-colors duration-300">
               About Us
             </a>
-            <a href="#" className="hover:text-yellow-400 transition-colors duration-300">
-              Bikes
+            <a href="/all-products" className="hover:text-yellow-400 transition-colors duration-300">
+              ALl Product
             </a>
             <a href="#" className="hover:text-yellow-400 transition-colors duration-300">
               Contact

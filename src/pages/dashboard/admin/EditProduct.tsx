@@ -18,7 +18,7 @@ const EditProduct = () => {
   const params = useParams();
   const { data: product, isLoading } = useGetSingleProductQuery({ id: params.id });
 
-  //console.log(product)
+
   useEffect(() => {
     if (product) {
       form.setFieldsValue({
@@ -83,7 +83,7 @@ const EditProduct = () => {
             name="productEdit"
             layout="vertical"
             onFinish={handleUpdateProduct}
-            onFinishFailed={(e) => console.log(e)}
+          
           >
             <div className="grid grid-cols-1 place-items-center md:grid-cols-2 p-3 gap-3 bg-white">
               <Form.Item

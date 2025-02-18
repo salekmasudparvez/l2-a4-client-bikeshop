@@ -23,7 +23,7 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ fileList, setFileList }) => {
           <input
             type="file"
             accept="image/*"
-            className="file-input"
+            className="file-input file-input-neutral"
             onChange={onChange}
           />
         )}
@@ -33,7 +33,7 @@ const PhotoUpload: React.FC<PhotoUploadProps> = ({ fileList, setFileList }) => {
             <img
               src={previewUrl}
               alt="Image Preview"
-              className="rounded-md w-30 h-30 shadow-md"
+              className="rounded-md  h-30 shadow-md"
             />
 
             <button

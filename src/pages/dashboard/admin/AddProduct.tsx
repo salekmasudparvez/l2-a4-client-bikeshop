@@ -1,14 +1,27 @@
 import { DashboardHeader } from "../../../components/sider/DashboardHeader";
-import { Button, Form, Input, InputNumber } from "antd";
+import { Button, Form, Input, InputNumber, Spin } from "antd";
 const { TextArea } = Input;
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PhotoUpload from "../../../components/form/PhotoUpload";
 import { toast } from "sonner";
 import { useAddProductMutation } from "../../../redux/features/product/productApi";
+import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
   const [fileList, setFileList] = useState([]);
-  const [addproduct] = useAddProductMutation();
+  const [addproduct,{data,error,isLoading}] = useAddProductMutation();
+  const navigate = useNavigate()
+  const [form]= Form.useForm()
+  useEffect(()=>{
+    if(data){
+      toast.success((data as any)?.data?.message||"Added Product Successfully")
+      form.resetFields();
+      navigate('/dashboard/admin/products')
+    }
+    if(error){
+      toast.error((error as any)?.data?.message||"Added Product failed")
+    }
+  },[data,error])
   const handleAddProduct = async (values: any) => {
     if (fileList.length === 0) {
       return toast.error("Please provide an image");
@@ -58,10 +71,10 @@ const AddProduct = () => {
     <div className="p-4 space-y-5">
       <DashboardHeader title="Add Product" />
       <div>
-        <Form
+       <Spin spinning={isLoading}>
+       <Form
           name="productUpload"
           layout="vertical"
-          onFinishFailed={(e) => console.log(e)}
           onFinish={handleAddProduct}
         >
           <div className="grid grid-cols-1 place-items-center md:grid-cols-2 p-3 gap-3 bg-white">
@@ -127,6 +140,7 @@ const AddProduct = () => {
             </Form.Item>
           </div>
         </Form>
+       </Spin>
       </div>
     </div>
   );

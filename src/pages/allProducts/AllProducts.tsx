@@ -1,5 +1,5 @@
 import { Button, Divider, Input, Spin } from "antd";
-import { useGetProductsQuery } from "../../redux/features/product/productApi";
+import { useAllbrandandcategoryQuery, useGetProductsQuery } from "../../redux/features/product/productApi";
 import ProductCard from "../../components/ui/ProductCard";
 import { TProduct } from "../../redux/features/product/productSlice";
 import { FilterFilled } from "@ant-design/icons";
@@ -16,26 +16,38 @@ export default function AllProducts() {
     const [getmaxPrice, setMaxPrice] = useState(Infinity)
     const [getmodel, setModel] = useState('');
     const [getbrand, setBrand] = useState('');
+    const [available,setAvailable] = useState(true)
 
-    const { data: getProducts, isLoading } = useGetProductsQuery({ search: searchTerm, brand: getbrand, model: getmodel, maxPrice: getmaxPrice, minPrice: getminPrice });
-
+    const { data: getProducts, isLoading } = useGetProductsQuery({ isAvailable:available,search: searchTerm, brand: getbrand, model: getmodel, maxPrice: getmaxPrice, minPrice: getminPrice });
+    const { data: brandAndCategory, isLoading: brandLoading } = useAllbrandandcategoryQuery({})
     const { Search } = Input
-    const srcLoading = false
+    const allBrand = brandAndCategory?.data[0]?.brands
+    const allCategory = brandAndCategory?.data[0]?.categories
+   
     const handleFillter = async (value: any) => {
+   
         setMinPrice(value?.minPrice)
         setMaxPrice(value?.maxPrice)
         setModel(value?.model)
         setBrand(value?.brand)
+        setAvailable(value?.isAvailable)
+
     }
-    const modelArray = [
-        { name: "Homda", value: 'honda' },
-        { name: "Yamaha", value: 'yamaha' }
-    ]
-    const brandArray = [
-        { name: "Ford", value: 'ford' }
-    ]
-    const handleFillterFailed = (error: any) => {
-        toast.error('Failed to filter')
+   
+    const modelArray =allCategory?.map((cate:string) => ({
+        name: cate,
+        value: cate
+    }));
+    const brandArray = allBrand?.map((brand: string) => ({
+        name: brand,
+        value: brand
+    }));
+
+    const handleFillterFailed = (error : any) => {
+        if(error){
+            toast.error('Failed to filter')
+        }
+        
     }
     const handleSearch = (event: any) => {
         event.preventDefault();
@@ -58,7 +70,9 @@ export default function AllProducts() {
             {/* seacrh and filter  */}
             <div className="flex flex-row rounded-box justify-between shadow-md items-center my-5">
                 <div className="px-5 md:w-1/2 w-2/3 flex justify-center items-center py-5">
-                    <Search onChange={handleSearch} size="middle" placeholder="Search by name,brand, category" enterButton="Search" loading={srcLoading} />
+                    <Search onChange={handleSearch} size="middle"
+                     placeholder="Search by name,brand, category" 
+                     enterButton="Search" loading={isLoading} />
                 </div>
                 <div className=" md:w-1/2 w-1/3 p-5   flex justify-end">
                     <Button onClick={() => setOpenFilter(!openFilter)} type="primary" icon={<FilterFilled />} />
@@ -66,7 +80,7 @@ export default function AllProducts() {
             </div>
             {/* show card */}
             <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-2">
-                {!isLoading ? (getProducts?.data?.map((product: TProduct, idx: any) => (
+                {!isLoading || !brandLoading ? (getProducts?.data?.map((product: TProduct, idx: any) => (
                     <ProductCard
                         key={idx}
                         productName={product?.productName}

@@ -22,15 +22,35 @@ const authApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    getsinglecustomer:builder.query<object, { email:string  }>({
+      query: (doc) => ({
+        url: `api/auth/getSingle/${doc?.email}`,
+        method: "GET",
+      }),
+    }),
     updateStatus:builder.mutation<object, { id: string; action: string;  }>({
       query:(payload)=>({
         url:"api/auth/update",
         method:"PATCH",
         body:payload
       })
+    }),
+    updateNameAndPhoto:builder.mutation({
+      query:(payload)=>({
+        url:`api/auth/update/user`,
+        method:"PATCH",
+        body:payload,
+      })
+    }),
+    updatepassword:builder.mutation({
+      query:(payload)=>({
+        url:`api/auth/update/password`,
+        method:"PATCH",
+        body:payload,
+      })
     })
   }),
 });
 
-export const { useLoginMutation,useSignupMutation ,useGetAllUserQuery, useUpdateStatusMutation} = authApi;
+export const { useLoginMutation,useSignupMutation,useUpdateNameAndPhotoMutation,useGetsinglecustomerQuery,useUpdatepasswordMutation ,useGetAllUserQuery, useUpdateStatusMutation} = authApi;
 export default authApi;

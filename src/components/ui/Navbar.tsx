@@ -5,7 +5,7 @@ import {   isAuthenticated, logout } from "../../redux/features/auth/authSlice";
 import { useSelector } from "react-redux";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { Avatar, Button } from "antd";
-import { DashboardFilled, LogoutOutlined, UserOutlined } from "@ant-design/icons";
+import { DashboardFilled, LogoutOutlined } from "@ant-design/icons";
 import { useState } from "react";
 
 
@@ -70,7 +70,7 @@ export function Navbar() {
                 </div>
                 <div className="navbar-end gap-0 pr-4 relative">
                     {isLogin ?
-                        (<button onClick={() => setMenu(!menu)} className="btn btn-circle hover-none border-none" ><Avatar size="large" icon={<UserOutlined />} /></button>)
+                        (<button onClick={() => setMenu(!menu)} className="btn btn-circle hover-none border-none" ><Avatar size="large" src={user?.photoURL||"https://img.freepik.com/free-vector/illustration-businessman_53876-5856.jpg"} /></button>)
                         : (<>
                             <Link to="/login" className="btn border-none rounded-l-full m-0 rounded-r-0 text-white pr-4 bg-[#FF6F00]">Login</Link>
                             <Link to="/signup" className="btn border-none rounded-r-full m-0 rounded-l-0  text-white pr-4 bg-[#007BFF]">Signup</Link></>)}

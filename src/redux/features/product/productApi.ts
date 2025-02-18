@@ -1,3 +1,4 @@
+
 import { baseApi } from "../../api/baseApi";
 
 
@@ -14,17 +15,24 @@ const productsApi = baseApi.injectEndpoints({
         model?: any;
         brand?: any;
         limit?: number;
+        isAvailable?:boolean
       }
     >({
-      query: ({ search, minPrice, maxPrice, model, brand, limit }) => ({
+      query: ({ search, minPrice, maxPrice, model, brand, limit,isAvailable }) => ({
         url: "api/product/get",
         method: "GET",
-        params: { search, minPrice, maxPrice, model, brand, limit },
+        params: { search, minPrice, maxPrice, model, brand, limit,isAvailable },
       }),
     }),
     getSingleProduct: builder.query<any, { id: any }>({
       query: ({ id }) => ({
         url: `api/product/get/${id}`,
+        method: "GET",
+      }),
+    }),
+    allbrandandcategory: builder.query({
+      query: () => ({
+        url: `api/product/category-and-brand`,
         method: "GET",
       }),
     }),
@@ -54,7 +62,10 @@ const productsApi = baseApi.injectEndpoints({
         url: `api/product/delete/${productId}`,
         method: "DELETE",
       }),
+      
     }),
+    
+    
   }),
 });
 
@@ -64,7 +75,8 @@ export const {
   useUpdateProductMutation,
   useDeleteProductMutation,
   useGetSingleProductQuery,
-  useUpdateAvailableStatusProductMutation
+  useAllbrandandcategoryQuery,
+  useUpdateAvailableStatusProductMutation,
 } = productsApi;
 
 export default productsApi;

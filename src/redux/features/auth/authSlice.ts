@@ -1,9 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface TLogUser {
+export interface TLogUser {
   name: string;
   email: string;
   role: string;
+  photoURL:string;
 }
 interface TAuthState {
   token: string | null;

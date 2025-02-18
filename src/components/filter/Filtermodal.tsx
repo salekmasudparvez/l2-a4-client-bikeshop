@@ -19,7 +19,7 @@ export function FilterModal({ open, setOpen, handleFillter, handleFillterFailed,
       centered
       open={open}
       onCancel={() => {
-        
+
         setOpen(false);
       }}
       footer={null}
@@ -74,24 +74,38 @@ export function FilterModal({ open, setOpen, handleFillter, handleFillterFailed,
               style={{ width: "100%" }}
             >
 
-              <Select  loading={!!!models} placeholder="Select a model" >
-                {models ? models.map((model, idx) => (<Select.Option  key={idx} value={model?.value}>{model?.name}</Select.Option>)) : (<Select.Option value="">No model</Select.Option>)}
+              <Select loading={!!!models} placeholder="Select a model" >
+                {models ? models.map((model, idx) => (<Select.Option key={idx} value={model?.value}>{model?.name}</Select.Option>)) : (<Select.Option value="">No model</Select.Option>)}
               </Select>
             </Form.Item>
           </div>
-         
+          <div className="w-full ">
+            <FilterFormTitle title="Available" />
+            <Form.Item
+              name="isAvailable"
+
+              style={{ width: "100%" }}
+            >
+
+              <Select loading={!!!models} placeholder="Select a availablity" >
+                <Select.Option value={true}>Available</Select.Option>
+                <Select.Option value={false}>Unavailable</Select.Option>
+              </Select>
+            </Form.Item>
+          </div>
+
 
         </div>
 
         <div className="flex justify-end gap-5">
-        <Button onClick={()=>form.resetFields()} type="default" >
-              Clear Filter
-            </Button>
+          <Button onClick={() => form.resetFields()} type="default" >
+            Clear Filter
+          </Button>
           <Form.Item>
-            <Button onClick={()=>setOpen(false)} type="primary" htmlType="submit">
+            <Button onClick={() => setOpen(false)} type="primary" htmlType="submit">
               Filter
             </Button>
-            
+
           </Form.Item>
         </div>
       </Form>

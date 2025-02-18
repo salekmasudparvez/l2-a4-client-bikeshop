@@ -11,10 +11,12 @@ import Forbidden from "../pages/error/Forbidden";
 import ProtectedRoute from "./ProtectedRoute";
 import { UserManagement } from "../pages/dashboard/admin/UserManagement";
 import AddProduct from "../pages/dashboard/admin/AddProduct";
-import { Orders } from "../pages/dashboard/customer/Orders";
-import { Profile } from "../pages/dashboard/customer/Profile";
 import { ProductManagement } from "../pages/dashboard/admin/ProductManagement";
-import  EditProduct  from "../pages/dashboard/admin/EditProduct";
+import EditProduct from "../pages/dashboard/admin/EditProduct";
+import Profile from "../pages/dashboard/customer/Profile";
+import Orders from "../pages/dashboard/customer/Orders";
+import { UpdateProfile } from "../pages/dashboard/customer/UpdateProfile";
+import OrderManage  from "../pages/dashboard/admin/OrderManage";
 
 export const router = createBrowserRouter([
   {
@@ -31,19 +33,21 @@ export const router = createBrowserRouter([
     path: "/dashboard/admin",
     element: <ProtectedRoute><DashboardLayout /></ProtectedRoute>,
     children: [
-      { index: true, element: <ProtectedRoute> <UserManagement /></ProtectedRoute>},
+      { index: true, element: <ProtectedRoute> <UserManagement /></ProtectedRoute> },
       { path: "product/add", element: <ProtectedRoute><AddProduct /></ProtectedRoute> },
-      {path: "products", element: <ProtectedRoute><ProductManagement/></ProtectedRoute>},
-      {path: "product/edit/:id", element: <ProtectedRoute><EditProduct/></ProtectedRoute>},
-
+      { path: "products", element: <ProtectedRoute><ProductManagement /></ProtectedRoute> },
+      { path: "product/edit/:id", element: <ProtectedRoute><EditProduct /></ProtectedRoute> },
+      { path: "orders", element: <ProtectedRoute><OrderManage /></ProtectedRoute> }
     ]
   },
   {
     path: "/dashboard/customer",
     element: <ProtectedRoute><DashboardLayout /></ProtectedRoute>,
     children: [
-      { index: true, element: <ProtectedRoute> <Orders /></ProtectedRoute>},
-      { path: "profile", element: <ProtectedRoute><Profile /></ProtectedRoute> },
+      { path: 'orders', element: <ProtectedRoute> <Orders /></ProtectedRoute> },
+      { path: 'update', element: <ProtectedRoute> <UpdateProfile /></ProtectedRoute> },
+      { index: true, element: <ProtectedRoute><Profile /></ProtectedRoute> },
+
 
     ]
   },

@@ -1,50 +1,79 @@
-# React + TypeScript + Vite
+---
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Gear Rush || Bike Shop
 
-Currently, two official plugins are available:
+Gear Rush is an online motorcycle shop where users can order their favorite bikes and make payments. The platform includes a dashboard for both admins and customers.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+In this project, I have used Redux Toolkit, RTK Query, React with Vite, TypeScript, Tailwind CSS, and some Ant Design components.
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Features
 
-- Configure the top-level `parserOptions` property like this:
+- **Customer Management**:
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+  - Customer can register and login.
+  - Customer can order bike.
+  - Customer can see order track .
+  - Customer can give reviews .
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+- **Admin Management**:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+  - Admin can add bike as product.
+  - Admin can delete any a bike post .
+  - Admin can update any post .
+  - Admin can manage users like block them or deactived them.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+
+
+
+## Installation
+
+### Prerequisites
+
+- Node.js
+- MongoDB (or a MongoDB cloud service like Atlas)
+
+### Steps
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/salekmasudparvez/l2-a4-client-bikeshop.git
+   ```
+
+2. Navigate to the project folder:
+
+   ```bash
+   cd l2-a4-client-bikeshop
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. Set up your **MongoDB** connection in the `app.ts` file (or use a service like MongoDB Atlas):
+
+   ```typescript
+   mongoose.connect('mongodb://localhost:27017/api/blogs')
+   ```
+
+5. Run the application:
+
+- Manage All environments variables from [.env.example](https://a3-l2-blog-backend.vercel.app/) file
+  
+6. Run the application:
+
+   ```bash
+   npm run dev
+   ```
+
+   The app will start on **http://localhost:5000**.
+
+## Live Server
+
+You can view the live version of the project here:
+
+[Live Server](https://gearrush.netlify.app)
+

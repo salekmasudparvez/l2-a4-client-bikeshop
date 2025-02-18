@@ -1,4 +1,4 @@
-import { Button, Spin } from "antd";
+import { Button, Skeleton, Spin } from "antd";
 import ProductCard from "./ProductCard";
 import { useGetProductsQuery } from "../../redux/features/product/productApi";
 import { TProduct } from "../../redux/features/product/productSlice";
@@ -8,6 +8,34 @@ export default function Features() {
     const navigate = useNavigate()
     const dataLimit = 6
     const { data: getProducts, isLoading } = useGetProductsQuery({ limit: dataLimit });
+
+    if (isLoading) {
+        return (<div className="space-y-5 mb-5">
+            <div className="flex justify-center items-center flex-col gap-3">
+                <Skeleton.Button active size="large" shape="round" style={{ width: 200 }} />
+                <Skeleton active paragraph={{ rows: 3 }} className="lg:w-2/3" />
+            </div>
+            <div>
+                <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-2">
+                    {!isLoading ? (
+                        Array(6).fill(null).map((_, idx) => (
+                            <Skeleton key={idx} active avatar paragraph={{ rows: 2 }} />
+                        ))
+                    ) : (
+                        <div className="flex justify-center items-center lg:col-span-4 md:col-span-3 sm:col-span-2 col-span-1">
+                            <Spin size="large" />
+                        </div>
+                    )}
+                </div>
+            </div>
+            <div className="flex justify-center items-center">
+                <Button onClick={() => navigate('/all-products')} size="large" type="primary" disabled>
+                    View All
+                </Button>
+            </div>
+        </div>)
+    }
+
     return (
         <div className="space-y-5 mb-5">
             <div className="flex justify-center items-center flex-col gap-3">
@@ -24,7 +52,7 @@ export default function Features() {
                             category={product?.category}
                             brand={product?.brand}
                             price={product?.price}
-                            available={product?.available}
+                            available={product?.isAvailable}
                             photoURL={product?.photoURL}
                             url={`/product/${product?._id}`}
                         />
@@ -35,7 +63,7 @@ export default function Features() {
 
             </div>
             <div className="flex justify-center items-center">
-                <Button onClick={()=>navigate('/all-products')} size="large" type="primary">
+                <Button onClick={() => navigate('/all-products')} size="large" type="primary">
                     View All
                 </Button>
             </div>

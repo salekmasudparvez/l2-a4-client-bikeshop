@@ -4,6 +4,8 @@ import storage from "redux-persist/lib/storage"; // Uses localStorage
 import { baseApi } from "./api/baseApi";
 import authReducer from "./features/auth/authSlice";
 import productsReducer from "./features/product/productSlice";
+import orderReducer from "./features/order/orderSlice";
+
 
 const persistConfig = {
   key: "auth",
@@ -18,6 +20,8 @@ export const store = configureStore({
     [baseApi.reducerPath]: baseApi.reducer,
     auth: persistedAuthReducer, 
     products: productsReducer,
+    order:orderReducer
+
   },
  
   middleware: (getDefaultMiddleware) =>

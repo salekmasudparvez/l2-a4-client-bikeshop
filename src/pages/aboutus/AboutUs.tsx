@@ -38,7 +38,7 @@ const AboutUs = () => {
                         <div className="mt-10 lg:mt-0">
                             <img
                                 className="rounded-lg shadow-lg"
-                                src="https://images.unsplash.com/photo-1600679472829-3044539ce8ed?ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80"
+                                src="https://img.freepik.com/free-photo/man-choosed-motorcycles-moto-shop-guy-black-jacket_1157-43586.jpg"
                                 alt="Gear Rush Team"
                             />
                         </div>
@@ -53,9 +53,9 @@ const AboutUs = () => {
                     </p>
                     <div className="mt-6">
                         <Button
-                           onClick={()=>navigate('/all-products')}
-                           type="primary"
-                           size="large"
+                            onClick={() => navigate('/all-products')}
+                            type="primary"
+                            size="large"
                         >
                             Shop Now
                         </Button>

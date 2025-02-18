@@ -70,7 +70,7 @@ export function UserManagement() {
   return (
     <div className="p-4 space-y-5">
       <DashboardHeader title="User Management" />
-      <div className="text-center p-5 bg-white">
+      <div className="text-center p-5 bg-white overflow-x-auto">
         <Table
           columns={columns}
           loading={isLoading ||isUpdateLoading}

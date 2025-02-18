@@ -54,7 +54,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
         <div className='flex justify-between p-1 items-center'>
           <div>
             <Link className='btn btn-sm rounded-full border-none bg-blue-500 text-white' to={url}>
-                View <EyeFilled/>
+            View Details <EyeFilled/>
             </Link>
           </div>
           <div
