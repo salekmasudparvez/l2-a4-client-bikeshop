@@ -61,7 +61,7 @@ In this project, I have used Redux Toolkit, RTK Query, React with Vite, TypeScri
 
 5. Run the application:
 
-- Manage All environments variables from [.env.example](https://a3-l2-blog-backend.vercel.app/) file
+- Manage All environments variables from [.env.example](https://github.com/salekmasudparvez/l2-a4-client-bikeshop/blob/main/.env.example) file
   
 6. Run the application:
 
