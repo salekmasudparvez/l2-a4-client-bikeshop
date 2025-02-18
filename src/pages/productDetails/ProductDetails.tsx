@@ -15,9 +15,10 @@ export function ProductDetails() {
    const user = useAppSelector((state) => state.auth.user);
   const [quantity, setQuantity] = useState(1);
   const navigate = useNavigate()
-  const stripePromise = loadStripe(import.meta.env.Vite_Sripe_Secret);
+  
+  const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_SECRET);
 
-  const { data: singleProduct, isLoading } = useGetSingleProductQuery({ id: productIdDb?.id });
+  const { data: singleProduct, isLoading ,refetch} = useGetSingleProductQuery({ id: productIdDb?.id });
   const handleBooking = () => {
     setOpenResponsive(!openResponsive)
   }
@@ -110,6 +111,7 @@ export function ProductDetails() {
       >
         <Elements stripe={stripePromise}>
           <CheckoutForm
+            refetch={refetch}
             productName={singleProduct?.data.productName}
             productId={singleProduct?.data.productId}
             price={singleProduct?.data.price}

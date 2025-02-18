@@ -21,6 +21,7 @@ interface TCheckOutFormProps {
     setOpenOnSeccess: (value: boolean) => void;
     setOpenFailed: (value: boolean) => void;
     setOpenResponsive: (value: boolean) => void;
+    refetch: () => void; 
 }
 
 const CheckoutForm: React.FC<TCheckOutFormProps> = ({ 
@@ -30,7 +31,8 @@ const CheckoutForm: React.FC<TCheckOutFormProps> = ({
     quantity,
     setOpenFailed,
     setOpenOnSeccess,
-    setOpenResponsive
+    setOpenResponsive,
+    refetch
 }) => {
     const stripe = useStripe();
     const user = useAppSelector((state) => state.auth.user);
@@ -92,6 +94,7 @@ const CheckoutForm: React.FC<TCheckOutFormProps> = ({
             setOpenResponsive(false);
             setOpenFailed(true);
             console.error(err);
+            refetch()
         }
     };
 
